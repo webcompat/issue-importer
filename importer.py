@@ -17,7 +17,10 @@ from termcolor import cprint
 
 
 def create_issue(payload):
-    headers = {'Authorization': 'token {0}'.format(OAUTH_TOKEN)}
+    headers = {
+        'Authorization': 'token {0}'.format(OAUTH_TOKEN),
+        'User-Agent': 'Webcompat-Issue-Importer'
+    }
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
     r = requests.post(uri, data=json.dumps(payload, ensure_ascii=True),
                       headers=headers)
