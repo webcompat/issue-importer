@@ -38,8 +38,7 @@ def create_issue(json_data):
     payload['title'] = json_data['title']
     payload['labels'] = json_data['labels']
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
-    r = requests.post(uri, data=json.dumps(payload, ensure_ascii=False),
-                      headers=headers)
+    r = requests.post(uri, data=json.dumps(payload), headers=headers)
     if r.status_code != 201:
         cprint('Something went wrong. Response: {0}. See '
                'developer.github.com/v3/ for troubleshooting.'.format(
