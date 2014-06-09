@@ -20,8 +20,13 @@ def create_issue(payload):
     headers = {'Authorization': 'token {0}'.format(OAUTH_TOKEN)}
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
     r = requests.post(uri, data=json.dumps(payload, ensure_ascii=True),
-                           headers=headers)
-    cprint(r.json()['html_url'] + ' successfully imported', 'green')
+                      headers=headers)
+    if r.status_code != 201:
+        cprint('Something went wrong. Response: {0}. See '
+               'developer.github.com/v3/ for troubleshooting.'.format(
+                   r.status_code), 'red')
+    else:
+        cprint(r.json()['html_url'] + ' successfully imported', 'green')
 
 
 def get_as_json(file_name):
@@ -32,10 +37,10 @@ def validate_json(file_name):
     json_data = get_as_json(file_name)
     try:
         jsonschema.validate(json_data, SCHEMA)
+        create_issue(json_data)
     except jsonschema.exceptions.ValidationError as e:
-        print(cprint('JSON Schema validation failed:', 'white', 'on_red'))
+        cprint('JSON Schema validation failed:', 'white', 'on_red')
         print(e)
-    print(json_data)
 
 
 def get_labels():
