@@ -43,8 +43,10 @@ def create_issue(json_data):
         cprint('Something went wrong. Response: {0}. See '
                'developer.github.com/v3/ for troubleshooting.'.format(
                    r.status_code), 'red')
+        return False
     else:
         cprint(r.json()['html_url'] + ' successfully imported', 'green')
+        return True
 
 
 def get_as_json(file_name):
