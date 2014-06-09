@@ -15,14 +15,30 @@ from config import REPO_URI, OAUTH_TOKEN
 from schema import SCHEMA
 from termcolor import cprint
 
+def get_body(json_data):
+    body = u'''
+**URL**: {0}
+**Browser**: {1}
+**Version**: {2}
 
-def create_issue(payload):
+{3}'''
+    return body.format(json_data['url'],
+                       json_data['browser'],
+                       json_data['version'],
+                       json_data['body'])
+
+
+def create_issue(json_data):
     headers = {
         'Authorization': 'token {0}'.format(OAUTH_TOKEN),
         'User-Agent': 'Webcompat-Issue-Importer'
     }
+    payload = {}
+    payload['body'] = get_body(json_data)
+    payload['title'] = json_data['title']
+    payload['labels'] = json_data['labels']
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
-    r = requests.post(uri, data=json.dumps(payload, ensure_ascii=True),
+    r = requests.post(uri, data=json.dumps(payload, ensure_ascii=False),
                       headers=headers)
     if r.status_code != 201:
         cprint('Something went wrong. Response: {0}. See '

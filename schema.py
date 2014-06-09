@@ -6,23 +6,28 @@
 
 '''Defines a schema to validate against:
 
-body: required, a string
+url: required, a string
 title: required, a string
+browser: required, a string
+version: required, a string
+body: required, a string
 labels: optional, but if included, all strings
 '''
 
 SCHEMA = {
     "type": "object",
     "properties": {
-        "body": {"type": "string"},
+        "url": {"type": "string"},
         "title": {"type": "string"},
+        "browser": {"type": "string"},
+        "version": {"type": "string"},
+        "body": {"type": "string"},
         "labels": {
             "type": "array",
             "items": {
                 "type": "string"
             }
-
         },
     },
-    "required": ["body", "title"]
+    "required": ["url", "title", "browser", "version", "body"]
 }
