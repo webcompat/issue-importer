@@ -16,7 +16,7 @@ See `schema.py` for a description of the expected format of an issue to be impor
 
 2) Point the tool to a valid JSON file which contains a single issue. The importer will let you know if the JSON isn't valid.
 
-`python importer.py issue.json`
+`python import.py issue.json`
 
 If successful, the tool will print the URL of the newly created issue.
 If there's a JSON schema error, a description of the error will be printed.
