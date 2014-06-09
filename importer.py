@@ -16,11 +16,12 @@ from schema import SCHEMA
 from termcolor import cprint
 
 
-def create_issue(endpoint, payload, issue):
+def create_issue(payload):
     headers = {'Authorization': 'token {0}'.format(OAUTH_TOKEN)}
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
-    requests.post(uri, data=json.dumps(payload, ensure_ascii=True),
-                  headers=headers)
+    r = requests.post(uri, data=json.dumps(payload, ensure_ascii=True),
+                           headers=headers)
+    cprint(r.json()['html_url'] + ' successfully imported', 'green')
 
 
 def get_as_json(file_name):
