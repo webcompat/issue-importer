@@ -70,12 +70,3 @@ def get_labels():
         labels.append(label.get('name'))
     print('All labels: {0}'.format(labels))
     return labels
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('issue_file',
-                        help='JSON file representing a single issue.')
-    args = parser.parse_args()
-    issue_file = args.issue_file
-    validate_json(issue_file)
