@@ -24,11 +24,13 @@ def get_body(json_data):
 **URL**: {0}
 **Browser**: {1}
 **Version**: {2}
+**Operating System**: {3}
 
 {3}'''
     return body.format(json_data['url'],
                        json_data['browser'],
                        json_data['version'],
+                       json_data['os'],
                        json_data['body'])
 
 
