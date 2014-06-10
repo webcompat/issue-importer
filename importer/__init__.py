@@ -17,6 +17,7 @@ from config import REPO_URI, OAUTH_TOKEN
 from schema import SCHEMA
 from termcolor import cprint
 
+
 def get_body(json_data):
     '''Return the issue body in the proper format.'''
     body = u'''
@@ -29,6 +30,7 @@ def get_body(json_data):
                        json_data['browser'],
                        json_data['version'],
                        json_data['body'])
+
 
 def get_payload(json_data):
     '''Create the POST "payload" object.'''
