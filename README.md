@@ -1,4 +1,4 @@
-# Webcompat Issue Importer
+## Webcompat Issue Importer
 
 This tool allows importing of issues from external sources to the webcompat.com web-bugs repo.
 
