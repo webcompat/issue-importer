@@ -4,6 +4,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+'''Does the main work to prepare and create a new issue.'''
+
 import argparse
 import json
 import jsonschema
@@ -16,6 +18,7 @@ from schema import SCHEMA
 from termcolor import cprint
 
 def get_body(json_data):
+    '''Return the issue body in the proper format.'''
     body = u'''
 **URL**: {0}
 **Browser**: {1}
@@ -28,6 +31,7 @@ def get_body(json_data):
                        json_data['body'])
 
 def get_payload(json_data):
+    '''Create the POST "payload" object.'''
     payload = {}
     payload['body'] = get_body(json_data)
     payload['title'] = json_data['title']
@@ -36,6 +40,9 @@ def get_payload(json_data):
 
 
 def create_issue(json_data):
+    '''Create a new GitHub issue by POSTing data to the issues API endpoint.
+    If successful, the URL to the new issue is printed. Otherwise, the error
+    code is printed.'''
     headers = {
         'Authorization': 'token {0}'.format(OAUTH_TOKEN),
         'User-Agent': 'Webcompat-Issue-Importer'
@@ -54,10 +61,12 @@ def create_issue(json_data):
 
 
 def get_as_json(file_name):
+    '''Return the contents of `file_name` as a JSON object.'''
     return json.load(open(file_name))
 
 
 def validate_json(file_name):
+    '''Validate the structure of `file_name` against our JSON schema.'''
     json_data = get_as_json(file_name)
     try:
         jsonschema.validate(json_data, SCHEMA)
