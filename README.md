@@ -9,12 +9,15 @@ If you're interested in doing this, please reach out to miket@mozilla.com so he 
 See `schema.py` for a description of the expected format of an issue to be imported.
 
 ### Usage
+1) Install dependencies
 
-1) Create a `config.py` file, and add a valid [OAuth token](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
+`pip install -r requirements.txt`
+
+2) Create a `config.py` file, and add a valid [OAuth token](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
 
 `cp config.py.example config.py`
 
-2) Point the tool to a valid JSON file which contains a single issue. The importer will let you know if the JSON isn't valid.
+3) Point the tool to a valid JSON file which contains a single issue. The importer will let you know if the JSON isn't valid.
 
 `python import.py issue.json`
 
