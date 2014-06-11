@@ -12,7 +12,7 @@ from importer import validate_json, get_labels
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('issue_file',
+    parser.add_argument('issue_file', nargs='?', default=sys.stdin,
                         help='JSON file representing a single issue.')
     parser.add_argument('-l', '--labels', action='store_true',
                         help='Print all labels used by issues.')
