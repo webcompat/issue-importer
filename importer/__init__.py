@@ -63,7 +63,7 @@ def create_issue(json_data):
 
 
 def get_as_json(issue_file):
-    '''Return the contents of `file_name` as a JSON object.'''
+    '''Return the contents of `issue_file` as a JSON object.'''
     try:
         # is `issue_file` a file object?
         r = json.load(issue_file)
