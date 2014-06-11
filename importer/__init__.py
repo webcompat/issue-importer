@@ -62,14 +62,20 @@ def create_issue(json_data):
         return True
 
 
-def get_as_json(file_name):
+def get_as_json(issue_file):
     '''Return the contents of `file_name` as a JSON object.'''
-    return json.load(open(file_name))
+    try:
+        # is `issue_file` a file object?
+        r = json.load(issue_file)
+    except AttributeError:
+        # is `issue_file` a file name (string)?
+        r = json.load(open(issue_file))
+    return r
 
 
-def validate_json(file_name):
+def validate_json(issue_file):
     '''Validate the structure of `file_name` against our JSON schema.'''
-    json_data = get_as_json(file_name)
+    json_data = get_as_json(issue_file)
     try:
         jsonschema.validate(json_data, SCHEMA)
         create_issue(json_data)
