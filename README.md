@@ -25,6 +25,10 @@ If successful, the tool will print the URL of the newly created issue.
 If there's a JSON schema error, a description of the error will be printed.
 If there's some kind of other error, the response status code the GitHub API returned will be printed. The [GitHub API documentation](https://developer.github.com/v3/) is helpful in these cases.
 
+To print all the labels used in the repo's issues:
+
+`python import.py -l`
+
 ### Running Tests
 
 Use the `nosetests` command.
