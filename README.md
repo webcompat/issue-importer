@@ -6,7 +6,29 @@ If you're interested in doing this, please reach out to miket@mozilla.com so he 
 
 ### JSON schema
 
-See `schema.py` for a description of the expected format of an issue to be imported.
+The JSON passed in is validated against the following JSON schema:
+
+``` python
+SCHEMA = {
+    "type": "object",
+    "properties": {
+        "url": {"type": "string"},
+        "title": {"type": "string"},
+        "browser": {"type": "string"},
+        "version": {"type": "string"},
+        "body": {"type": "string"},
+        "labels": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+    },
+    "required": ["url", "title", "browser", "version", "body"]
+}
+```
+
+See [http://json-schema.org/](http://json-schema.org/) for more information.
 
 ### Usage
 1) Install dependencies
