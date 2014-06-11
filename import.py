@@ -7,12 +7,18 @@
 '''Main entry point to the importer module.'''
 
 import argparse
-from importer import validate_json
+import sys
+from importer import validate_json, get_labels
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('issue_file',
                         help='JSON file representing a single issue.')
+    parser.add_argument('-l', '--labels', action='store_true',
+                        help='Print all labels used by issues.')
     args = parser.parse_args()
     issue_file = args.issue_file
+    if args.labels:
+        get_labels()
+        sys.exit(0)
     validate_json(issue_file)
