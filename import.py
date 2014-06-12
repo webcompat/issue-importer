@@ -16,9 +16,10 @@ if __name__ == '__main__':
                         help='JSON file representing a single issue.')
     parser.add_argument('-l', '--labels', action='store_true',
                         help='Print all labels used by issues.')
+    parser.add_argument('-f', '--force', action='store_true',
+                        help='Don\'t validate labels against the issues repo.')
     args = parser.parse_args()
-    issue_file = args.issue_file
     if args.labels:
-        get_labels()
+        print_labels()
         sys.exit(0)
-    validate_json(issue_file)
+    validate_json(args.issue_file, args.force)

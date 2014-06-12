@@ -16,6 +16,14 @@ import requests
 from config import REPO_URI, OAUTH_TOKEN
 from schema import schema
 from termcolor import cprint
+from textwrap import fill
+
+LABEL_VALIDATION_ERROR = '''
+You attempted to create an issue with an unknown label--GitHub ignores unknown
+labels when creating issues. Please email miket@mozilla.com if you feel like
+this label should be added to the web-bugs issues tracker. To ignore this type
+of validation and proceed, try again using the --force option.
+'''
 
 
 def get_body(json_data):
@@ -73,15 +81,22 @@ def get_as_json(issue_file):
     return r
 
 
-def validate_json(issue_file):
+def validate_json(issue_file, skip_labels=False):
     '''Validate the structure of `file_name` against our JSON schema.'''
     json_data = get_as_json(issue_file)
+    if not skip_labels:
+        schema['properties']['labels']['items'].update(enum=get_labels())
     try:
         jsonschema.validate(json_data, schema)
         create_issue(json_data)
     except jsonschema.exceptions.ValidationError as e:
         cprint('JSON Schema validation failed:', 'white', 'on_red')
-        print(e)
+        print('\n')
+        if e.path.popleft() == 'labels':
+            print(fill(LABEL_VALIDATION_ERROR, width=80) + '\n')
+            print(e.message)
+        else:
+            print(e)
 
 
 def get_labels():
