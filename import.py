@@ -8,7 +8,7 @@
 
 import argparse
 import sys
-from importer import validate_json, get_labels
+from importer import validate_json, print_labels
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

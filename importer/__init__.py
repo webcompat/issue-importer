@@ -91,5 +91,9 @@ def get_labels():
     r = requests.get(uri)
     for label in r.json():
         labels.append(label.get('name'))
-    print('All labels: {0}'.format(labels))
     return labels
+
+
+def print_labels():
+    '''Print all labels used by issues at REPO_URI.'''
+    print('All labels: {0}'.format(get_labels()))
