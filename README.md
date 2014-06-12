@@ -9,7 +9,7 @@ If you're interested in doing this, please reach out to miket@mozilla.com so he 
 The JSON passed in is validated against the following JSON schema:
 
 ``` python
-SCHEMA = {
+schema = {
     "type": "object",
     "properties": {
         "url": {"type": "string"},

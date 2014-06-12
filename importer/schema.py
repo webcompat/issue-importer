@@ -14,7 +14,7 @@ body: required, a string
 labels: optional, but if included, all strings
 '''
 
-SCHEMA = {
+schema = {
     "type": "object",
     "properties": {
         "url": {"type": "string"},
@@ -26,6 +26,8 @@ SCHEMA = {
             "type": "array",
             "items": {
                 "type": "string"
+                # enum of allowed values added dynamically
+                # unless the --force option is used.
             }
         },
     },

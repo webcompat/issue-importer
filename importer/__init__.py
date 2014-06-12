@@ -14,7 +14,7 @@ import re
 import requests
 
 from config import REPO_URI, OAUTH_TOKEN
-from schema import SCHEMA
+from schema import schema
 from termcolor import cprint
 
 
@@ -77,7 +77,7 @@ def validate_json(issue_file):
     '''Validate the structure of `file_name` against our JSON schema.'''
     json_data = get_as_json(issue_file)
     try:
-        jsonschema.validate(json_data, SCHEMA)
+        jsonschema.validate(json_data, schema)
         create_issue(json_data)
     except jsonschema.exceptions.ValidationError as e:
         cprint('JSON Schema validation failed:', 'white', 'on_red')
