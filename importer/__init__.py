@@ -19,9 +19,9 @@ from termcolor import cprint
 from textwrap import fill
 
 LABEL_VALIDATION_ERROR = '''
-You attempted to create an issue with an unknown label--GitHub ignores unknown
+You attempted to create an issue with an unknown label. GitHub ignores unknown
 labels when creating issues. Please email miket@mozilla.com if you feel like
-this label should be added to the web-bugs issues tracker. To ignore this type
+this label should be added to the web-bugs issues repo. To ignore this type
 of validation and proceed, try again using the --force option.
 '''
 
