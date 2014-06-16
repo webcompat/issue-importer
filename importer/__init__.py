@@ -26,7 +26,7 @@ of validation and proceed, try again using the --force option.
 '''
 
 
-def get_body(json_data):
+def get_issue_body(json_data):
     '''Return the issue body in the proper format.'''
     body = u'''
 **URL**: {0}
@@ -43,7 +43,7 @@ def get_body(json_data):
 def get_post_body(json_data):
     '''Create the POST "body" object.'''
     body = {}
-    body['body'] = get_body(json_data)
+    body['body'] = get_issue_body(json_data)
     body['title'] = json_data['title']
     body['labels'] = json_data['labels']
     return body
