@@ -30,6 +30,10 @@ schema = {
                 # unless the --force option is used.
             }
         },
+        "comments": {
+            "type": "array",
+            "items": {"type": "string"}
+        }
     },
     "required": ["url", "title", "browser", "version", "body"]
 }
