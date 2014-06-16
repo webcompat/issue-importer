@@ -17,7 +17,8 @@ json_data = {
   u"browser": u"Firefox",
   u"version": u"30",
   u"body": u"The site asks me to upgrade",
-  u"labels": [u"contactready", u"invalid"]
+  u"labels": [u"contactready", u"invalid"],
+  u"comments": [u"1", u"2", u"3"]
 }
 
 class TestPayload(unittest.TestCase):

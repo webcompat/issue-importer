@@ -12,13 +12,14 @@ import unittest
 from importer import create_issue
 from httmock import urlmatch, HTTMock
 
-payload = {
+json_data = {
   u"url": u"www.💩.com",
   u"title": u"Upgrade browser message",
   u"browser": u"Firefox",
   u"version": u"30",
   u"body": u"The site asks me to upgrade",
-  u"labels": [u"contactready", u"invalid"]
+  u"labels": [u"contactready", u"invalid"],
+  u"comments": [u"1", u"2", u"3"]
 }
 
 
@@ -30,7 +31,7 @@ def github_post_mock(url, request):
 class TestPostSuccess(unittest.TestCase):
     def test_issues_redirect(self):
         with HTTMock(github_post_mock):
-            self.assertFalse(create_issue(payload))
+            self.assertFalse(create_issue(json_data))
 
 
 if __name__ == '__main__':
