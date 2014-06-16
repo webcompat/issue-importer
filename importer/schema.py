@@ -31,6 +31,7 @@ schema = {
             }
         },
         "comments": {
+            # comments, if included, should be ordered from old to new
             "type": "array",
             "items": {"type": "string"}
         }

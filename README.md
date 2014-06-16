@@ -21,8 +21,15 @@ schema = {
             "type": "array",
             "items": {
                 "type": "string"
+                # enum of allowed values added dynamically
+                # unless the --force option is used.
             }
         },
+        "comments": {
+            # comments, if included, should be ordered from old to new
+            "type": "array",
+            "items": {"type": "string"}
+        }
     },
     "required": ["url", "title", "browser", "version", "body"]
 }
