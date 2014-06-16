@@ -48,18 +48,24 @@ def get_payload(json_data):
     payload['labels'] = json_data['labels']
     return payload
 
+def api_post(uri, body):
+    '''Generic method to create a resource at GitHub. `uri` will determine
+    what gets created (currently either an issue or a comment).'''
+    headers = {
+        'Authorization': 'token {0}'.format(OAUTH_TOKEN),
+        'User-Agent': 'Webcompat-Issue-Importer'
+    }
+    return requests.post(uri, data=json.dumps(body), headers=headers)
+
+
 
 def create_issue(json_data):
     '''Create a new GitHub issue by POSTing data to the issues API endpoint.
     If successful, the URL to the new issue is printed. Otherwise, the error
     code is printed.'''
-    headers = {
-        'Authorization': 'token {0}'.format(OAUTH_TOKEN),
-        'User-Agent': 'Webcompat-Issue-Importer'
-    }
     payload = get_payload(json_data)
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
-    r = requests.post(uri, data=json.dumps(payload), headers=headers)
+    r = api_post(uri, payload)
     if r.status_code != 201:
         cprint('Something went wrong. Response: {0}. See '
                'developer.github.com/v3/ for troubleshooting.'.format(
@@ -68,6 +74,13 @@ def create_issue(json_data):
     else:
         cprint(r.json()['html_url'] + ' successfully imported', 'green')
         return True
+
+
+def add_comment(issue_number, body):
+    '''After the issue has been created, add comments (if any).'''
+    uri = 'https://api.github.com/repos/{0}/issues/{1}/comments'.format(
+        REPO_URI, issue_number)
+    return api_post(uri, body)
 
 
 def get_as_json(issue_file):
