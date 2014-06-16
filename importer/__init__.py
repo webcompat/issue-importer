@@ -48,6 +48,7 @@ def get_post_body(json_data):
     body['labels'] = json_data['labels']
     return body
 
+
 def api_post(uri, body):
     '''Generic method to create a resource at GitHub. `uri` will determine
     what gets created (currently either an issue or a comment).'''
@@ -56,7 +57,6 @@ def api_post(uri, body):
         'User-Agent': 'Webcompat-Issue-Importer'
     }
     return requests.post(uri, data=json.dumps(body), headers=headers)
-
 
 
 def create_issue(json_data):
