@@ -73,13 +73,23 @@ def create_issue(json_data):
         return False
     else:
         cprint(r.json()['html_url'] + ' successfully imported', 'green')
+        if len(json_data['comments']) > 0:
+            number = r.json()['number']
+            cprint('Importing comments...', 'yellow')
+            for comment in json_data['comments']:
+                c = add_comment(number, comment)
+            cprint('OK', 'green')
         return True
 
 
-def add_comment(issue_number, post_body):
+def add_comment(issue_number, comment):
     '''After the issue has been created, add comments (if any).'''
     uri = 'https://api.github.com/repos/{0}/issues/{1}/comments'.format(
         REPO_URI, issue_number)
+    if not comment:
+        return False
+    post_body = {}
+    post_body['body'] = comment
     return api_post(uri, post_body)
 
 
