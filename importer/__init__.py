@@ -40,13 +40,13 @@ def get_body(json_data):
                        json_data['body'])
 
 
-def get_payload(json_data):
-    '''Create the POST "payload" object.'''
-    payload = {}
-    payload['body'] = get_body(json_data)
-    payload['title'] = json_data['title']
-    payload['labels'] = json_data['labels']
-    return payload
+def get_post_body(json_data):
+    '''Create the POST "body" object.'''
+    body = {}
+    body['body'] = get_body(json_data)
+    body['title'] = json_data['title']
+    body['labels'] = json_data['labels']
+    return body
 
 def api_post(uri, body):
     '''Generic method to create a resource at GitHub. `uri` will determine
@@ -63,9 +63,9 @@ def create_issue(json_data):
     '''Create a new GitHub issue by POSTing data to the issues API endpoint.
     If successful, the URL to the new issue is printed. Otherwise, the error
     code is printed.'''
-    payload = get_payload(json_data)
+    body = get_post_body(json_data)
     uri = 'https://api.github.com/repos/{0}/issues'.format(REPO_URI)
-    r = api_post(uri, payload)
+    r = api_post(uri, body)
     if r.status_code != 201:
         cprint('Something went wrong. Response: {0}. See '
                'developer.github.com/v3/ for troubleshooting.'.format(
@@ -76,11 +76,11 @@ def create_issue(json_data):
         return True
 
 
-def add_comment(issue_number, body):
+def add_comment(issue_number, post_body):
     '''After the issue has been created, add comments (if any).'''
     uri = 'https://api.github.com/repos/{0}/issues/{1}/comments'.format(
         REPO_URI, issue_number)
-    return api_post(uri, body)
+    return api_post(uri, post_body)
 
 
 def get_as_json(issue_file):
