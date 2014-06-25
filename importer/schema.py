@@ -9,9 +9,10 @@
 url: required, a string
 title: required, a string
 browser: required, a string
-version: required, a string
+os: required, a string
 body: required, a string
-labels: optional, but if included, all strings
+labels: optional, array of strings
+comments: optional, array of strings
 '''
 
 schema = {
@@ -20,7 +21,6 @@ schema = {
         "url": {"type": "string"},
         "title": {"type": "string"},
         "browser": {"type": "string"},
-        "version": {"type": "string"},
         "os": {"type": "string"},
         "body": {"type": "string"},
         "labels": {
@@ -37,5 +37,5 @@ schema = {
             "items": {"type": "string"}
         }
     },
-    "required": ["url", "title", "browser", "version", "os", "body"]
+    "required": ["url", "title", "browser", "os", "body"]
 }

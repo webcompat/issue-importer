@@ -30,14 +30,12 @@ def get_issue_body(json_data):
     '''Return the issue body in the proper format.'''
     body = u'''
 **URL**: {0}
-**Browser**: {1}
-**Version**: {2}
-**Operating System**: {3}
+**Browser / Version**: {1}
+**Operating System**: {2}
 
 {3}'''
     return body.format(json_data['url'],
                        json_data['browser'],
-                       json_data['version'],
                        json_data['os'],
                        json_data['body'])
 
