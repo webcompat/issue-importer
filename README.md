@@ -15,7 +15,7 @@ schema = {
         "url": {"type": "string"},
         "title": {"type": "string"},
         "browser": {"type": "string"},
-        "version": {"type": "string"},
+        "os": {"type": "string"},
         "body": {"type": "string"},
         "labels": {
             "type": "array",
@@ -31,9 +31,11 @@ schema = {
             "items": {"type": "string"}
         }
     },
-    "required": ["url", "title", "browser", "version", "body"]
+    "required": ["url", "title", "browser", "os", "body"]
 }
 ```
+
+Note: The `browser` key can contain browser name and version, or only name, i.e., "Firefox 30" or "Firefox" are acceptable values.
 
 See [http://json-schema.org/](http://json-schema.org/) for more information.
 
