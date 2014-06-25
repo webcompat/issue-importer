@@ -21,6 +21,7 @@ schema = {
         "title": {"type": "string"},
         "browser": {"type": "string"},
         "version": {"type": "string"},
+        "os": {"type": "string"},
         "body": {"type": "string"},
         "labels": {
             "type": "array",
@@ -36,5 +37,5 @@ schema = {
             "items": {"type": "string"}
         }
     },
-    "required": ["url", "title", "browser", "version", "body"]
+    "required": ["url", "title", "browser", "version", "os", "body"]
 }
