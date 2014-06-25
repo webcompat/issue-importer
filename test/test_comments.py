@@ -14,8 +14,8 @@ from importer import add_comment
 json_data = {
   u"url": u"www.💩.com",
   u"title": u"Upgrade browser message",
-  u"browser": u"Firefox",
-  u"version": u"30",
+  u"browser": u"Firefox 30",
+  u"os": u"Windows 7",
   u"body": u"The site asks me to upgrade",
   u"labels": [u"contactready", u"invalid"],
   u"comments": [u"1", u"2", u"", u"3", None]
