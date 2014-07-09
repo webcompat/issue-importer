@@ -4,5 +4,5 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-REPO_URI = 'webcompat/web-bugs'
+REPO_PATH = 'webcompat/web-bugs'
 OAUTH_TOKEN = 'insert token here'
