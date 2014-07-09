@@ -84,12 +84,11 @@ def create_issue(json_data):
 
 def add_comment(issue_number, comment):
     '''After the issue has been created, add comments (if any).'''
-    uri = 'https://api.github.com/repos/{0}/issues/{1}/comments'.format(
-        REPO_URI, issue_number)
     if not comment:
         return False
-    post_body = {}
-    post_body['body'] = comment
+    uri = 'https://api.github.com/repos/{0}/issues/{1}/comments'.format(
+        REPO_URI, issue_number)
+    post_body = {'body': comment}
     return api_post(uri, post_body)
 
 
