@@ -9,7 +9,7 @@
 import requests
 import unittest
 
-from importer import get_post_body
+from importer import format_post_body
 
 json_data = {
   u"url": u"www.💩.com",
@@ -23,7 +23,7 @@ json_data = {
 
 class TestPayload(unittest.TestCase):
     def test_payload(self):
-        payload = get_post_body(json_data)
+        payload = format_post_body(json_data)
         self.assertIsNotNone(payload.get('body'))
         self.assertIsInstance(payload.get('body'), unicode)
         self.assertIsNotNone(payload.get('title'))
