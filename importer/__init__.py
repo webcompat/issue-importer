@@ -44,9 +44,9 @@ def get_issue_body(json_data):
 
 def format_post_body(json_data):
     '''Create the POST "body" object.'''
-    body = {'body' = get_issue_body(json_data),
-            'title' = json_data['title'],
-            'labels' = json_data['labels']}
+    body = {'body': get_issue_body(json_data),
+            'title': json_data['title'],
+            'labels': json_data['labels']}
     return body
 
 
