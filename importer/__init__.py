@@ -114,7 +114,7 @@ def validate_json(issue_file, skip_labels=False):
     except jsonschema.exceptions.ValidationError as e:
         cprint('JSON Schema validation failed:', 'white', 'on_red')
         print('\n')
-        if e.path.popleft() == 'labels':
+        if e.path and e.path.popleft() == 'labels':
             print(fill(LABEL_VALIDATION_ERROR, width=80) + '\n')
             print(e.message)
         else:
