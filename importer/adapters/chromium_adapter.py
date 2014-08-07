@@ -25,8 +25,13 @@ def get_xml(uri):
 
 
 def get_body(response):
-    '''Get the issue body text (which is html).'''
-    return response.get('entry').get('content').get('#text')
+    '''Get the issue body text (which is html). Also add a link back
+    to the original crbug issue.'''
+    body = response.get('entry').get('content').get('#text')
+    href = response.get('entry').get('link')[1].get('@href')
+    if 'http://code.google.com/p/chromium/issues/detail?id' in href:
+      body += '\n\n[Original Chromium bug tracker issue]({0}).'.format(href)
+    return body
 
 
 def get_url(response):
