@@ -30,7 +30,7 @@ def get_body(response):
     body = response.get('entry').get('content').get('#text')
     href = response.get('entry').get('link')[1].get('@href')
     if 'http://code.google.com/p/chromium/issues/detail?id' in href:
-      body += '\n\n[Original Chromium bug tracker issue]({0}).'.format(href)
+        body += '\n\n[Original Chromium bug tracker issue]({0}).'.format(href)
     return body
 
 
@@ -45,6 +45,7 @@ def get_url(response):
     else:
         return 'Unknown (possibly in description)'
     pass
+
 
 def get_os(response):
     '''Attempt to parse the operating system out of the bug body, but only
@@ -77,13 +78,13 @@ def get_comments(issue_id):
     response = parse(comments_xml)
 
     def get_comment(c):
-      '''Get the comment text and add a link back + author.'''
-      href = c.get('link')[0].get('@href')
-      body = c.get('content').get('#text')
-      author = c.get('author').get('name')
-      author_link = 'https://code.google.com' + c.get('author').get('uri')
-      return '[Original comment]({0}) by [{1}]({2})\n___\n\n{3}'.format(
-          href, author, author_link, body)
+        '''Get the comment text and add a link back + author.'''
+        href = c.get('link')[0].get('@href')
+        body = c.get('content').get('#text')
+        author = c.get('author').get('name')
+        author_link = 'https://code.google.com' + c.get('author').get('uri')
+        return '[Original comment]({0}) by [{1}]({2})\n___\n\n{3}'.format(
+            href, author, author_link, body)
 
     return [get_comment(c) for c
             in response.get('feed').get('entry')
