@@ -76,7 +76,16 @@ def get_comments(issue_id):
     comments_xml = get_xml(COMMENTS_URI.format(issue_id))
     response = parse(comments_xml)
 
-    return [c.get('content').get('#text') for c
+    def get_comment(c):
+      '''Get the comment text and add a link back + author.'''
+      href = c.get('link')[0].get('@href')
+      body = c.get('content').get('#text')
+      author = c.get('author').get('name')
+      author_link = 'https://code.google.com' + c.get('author').get('uri')
+      return '[Original comment]({0}) by [{1}]({2})\n___\n\n{3}'.format(
+          href, author, author_link, body)
+
+    return [get_comment(c) for c
             in response.get('feed').get('entry')
             if c.get('content').get('#text') is not None]
 
