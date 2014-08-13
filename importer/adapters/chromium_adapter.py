@@ -77,20 +77,21 @@ def get_comments(issue_id):
     comments_xml = get_xml(COMMENTS_URI.format(issue_id))
     response = parse(comments_xml)
 
+    def get_id(c):
+        '''Pull the comment id number out of its id URI'''
+        id_uri = c.get('id')
+        id = id_uri.rsplit('/', 1)[1]
+        return int(id)
+
     def get_comment(c):
         '''Get the comment text and add a link back + author.'''
         href = c.get('link')[0].get('@href')
         body = c.get('content').get('#text')
         author = c.get('author').get('name')
         author_link = 'https://code.google.com' + c.get('author').get('uri')
-        return '[Original comment]({0}) by [{1}]({2})\n___\n\n{3}'.format(
-            href, author, author_link, body)
+        return '[Original comment #{0}]({1}) by [{2}]({3})\n___\n\n{4}'.format(
+            get_id(c), href, author, author_link, body)
 
-    def get_id(c):
-        '''Pull the comment id number out of its id URI'''
-        id_uri = c.get('id')
-        id = id_uri.rsplit('/', 1)[1]
-        return int(id)
 
     ordered = sorted(response.get('feed').get('entry'), key=get_id)
     f = [get_comment(c) for c
