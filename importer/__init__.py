@@ -17,6 +17,7 @@ from config import REPO_PATH, OAUTH_TOKEN
 from schema import schema
 from termcolor import cprint
 from textwrap import fill
+from time import sleep
 
 LABEL_VALIDATION_ERROR = '''
 You attempted to create an issue with an unknown label. GitHub ignores unknown
@@ -94,6 +95,7 @@ def import_comments(number, comments):
 
     def add_comment(issue_number, comment):
         '''Add a single comment.'''
+        sleep(1)
         uri = '{0}/issues/{1}/comments'.format(REPO_URI, issue_number)
         body = {'body': comment}
         return api_post(uri, body, hooks=dict(response=next_comment))
