@@ -50,14 +50,14 @@ def format_post_body(json_data):
     return body
 
 
-def api_post(uri, body):
+def api_post(uri, body, hooks=None):
     '''Generic method to create a resource at GitHub. `uri` will determine
     what gets created (currently either an issue or a comment).'''
     headers = {
         'Authorization': 'token {0}'.format(OAUTH_TOKEN),
         'User-Agent': 'Webcompat-Issue-Importer'
     }
-    return requests.post(uri, data=json.dumps(body), headers=headers)
+    return requests.post(uri, data=json.dumps(body), headers=headers, hooks=hooks)
 
 
 def create_issue(json_data):
@@ -83,16 +83,23 @@ def create_issue(json_data):
 def import_comments(number, comments):
     '''Handles importing all comments from the comments array,
     ideally in order.'''
+    def next_comment(response, *args, **kwargs):
+        '''Callback to wait for a 201 before importing the next comment.'''
+        if response.status_code == 201:
+            cprint("{0} created".format(response.json()['html_url']), 'green')
+            try:
+                add_comment(number, comments.next())
+            except StopIteration:
+                cprint(u'All done. 🍪', 'green')
+
     def add_comment(issue_number, comment):
         '''Add a single comment.'''
         uri = '{0}/issues/{1}/comments'.format(REPO_URI, issue_number)
-        post_body = {'body': comment}
-        return api_post(uri, post_body)
+        body = {'body': comment}
+        return api_post(uri, body, hooks=dict(response=next_comment))
 
-    for comment in comments:
-        c = add_comment(number, comment)
-        cprint("{0} created".format(c.json()['html_url']), 'green')
-    cprint('OK', 'green')
+    comments = iter(comments)
+    add_comment(number, comments.next())
 
 
 def get_as_json(issue_file):
