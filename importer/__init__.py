@@ -75,21 +75,24 @@ def create_issue(json_data):
     else:
         cprint(r.json()['html_url'] + ' successfully imported', 'green')
         if len(json_data['comments']) > 0:
-            number = r.json()['number']
             cprint('Importing comments...', 'yellow')
-            for comment in json_data['comments']:
-                c = add_comment(number, comment)
-            cprint('OK', 'green')
+            import_comments(r.json()['number'], json_data['comments'])
         return True
 
 
-def add_comment(issue_number, comment):
-    '''After the issue has been created, add comments (if any).'''
-    if not comment:
-        return False
-    uri = '{0}/issues/{1}/comments'.format(REPO_URI, issue_number)
-    post_body = {'body': comment}
-    return api_post(uri, post_body)
+def import_comments(number, comments):
+    '''Handles importing all comments from the comments array,
+    ideally in order.'''
+    def add_comment(issue_number, comment):
+        '''Add a single comment.'''
+        uri = '{0}/issues/{1}/comments'.format(REPO_URI, issue_number)
+        post_body = {'body': comment}
+        return api_post(uri, post_body)
+
+    for comment in comments:
+        c = add_comment(number, comment)
+        cprint("{0} created".format(c.json()['html_url']), 'green')
+    cprint('OK', 'green')
 
 
 def get_as_json(issue_file):
