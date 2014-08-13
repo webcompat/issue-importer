@@ -58,7 +58,8 @@ def api_post(uri, body, hooks=None):
         'Authorization': 'token {0}'.format(OAUTH_TOKEN),
         'User-Agent': 'Webcompat-Issue-Importer'
     }
-    return requests.post(uri, data=json.dumps(body), headers=headers, hooks=hooks)
+    return requests.post(uri, data=json.dumps(body), headers=headers,
+                         hooks=hooks)
 
 
 def create_issue(json_data):

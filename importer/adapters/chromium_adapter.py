@@ -92,11 +92,10 @@ def get_comments(issue_id):
         return '[Original comment #{0}]({1}) by [{2}]({3})\n___\n\n{4}'.format(
             get_id(c), href, author, author_link, body)
 
-
     ordered = sorted(response.get('feed').get('entry'), key=get_id)
     f = [get_comment(c) for c
-            in ordered
-            if c.get('content').get('#text') is not None]
+         in ordered
+         if c.get('content').get('#text') is not None]
 
     return f
 
