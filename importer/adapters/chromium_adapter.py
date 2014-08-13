@@ -86,9 +86,18 @@ def get_comments(issue_id):
         return '[Original comment]({0}) by [{1}]({2})\n___\n\n{3}'.format(
             href, author, author_link, body)
 
-    return [get_comment(c) for c
-            in response.get('feed').get('entry')
+    def get_id(c):
+        '''Pull the comment id number out of its id URI'''
+        id_uri = c.get('id')
+        id = id_uri.rsplit('/', 1)[1]
+        return int(id)
+
+    ordered = sorted(response.get('feed').get('entry'), key=get_id)
+    f = [get_comment(c) for c
+            in ordered
             if c.get('content').get('#text') is not None]
+
+    return f
 
 
 def adapt(issue_id):
