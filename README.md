@@ -88,6 +88,16 @@ If successful, the tool will print the URL of the newly created issue.
 If there's a JSON schema error, a description of the error will be printed.
 If there's some kind of other error, the response status code the GitHub API returned will be printed. The [GitHub API documentation](https://developer.github.com/v3/) is helpful in these cases.
 
+### Adapters
+
+It should be possible to write "adapters" to transform data from different sources into something that conforms to the defined JSON schema. Take a look at the Chromium Bugtracker Adapter for pointers on how to do this.
+
+#### Chromium Adapter
+
+Usage:
+
+`python importer/adapters/chromium_adapter.py 12345 > issue.json`
+
 ### Running Tests
 
 Use the `nosetests` command.
